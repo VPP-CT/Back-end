@@ -1,0 +1,22 @@
+{
+  "flight": [
+    {
+      "id": 1,
+      "airline": "AAL",
+      "number": "480",
+      "from": "JFK",
+      "to": "CDG",
+      "departure": "2016-04-21 T18:00:00",
+      "arrival": "2012-04-22 T04:25:00"
+    },
+    {
+      "id": 2,
+      "airline": "AAL",
+      "number": "481",
+      "from": "CDG",
+      "to": "JFK",
+      "departure": "2016-04-22 T08:00:00",
+      "arrival": "2012-04-23 T16:25:00"
+    }
+  ]
+}
