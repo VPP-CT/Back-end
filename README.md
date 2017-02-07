@@ -16,6 +16,11 @@ Install roadhog at ./
 npm i roadhog -g
 ```
 
+Install React and other packages:
+```
+npm i
+```
+
 ## Run:
 ```
 npm run server 
