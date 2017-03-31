@@ -6,10 +6,10 @@ class Home extends React.Component {
         return(
             <div>
                 <header>
-                    <h1>Hello!</h1>
+                    <h1>Hi there!</h1>
                 </header>
                 <main>
-                    <div>Hello World!</div>
+                    <div>Click the link below to check data in the database</div>
                     <Link to="/list">Flights List</Link>
                 </main>
             </div>

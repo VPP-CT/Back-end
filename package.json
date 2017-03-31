@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "cd server && json-server db.json -w -p 3000",
+    "server": "cd server && json-server result.json -w -p 3000",
     "backend": "roadhog server"
   },
   "author": "",

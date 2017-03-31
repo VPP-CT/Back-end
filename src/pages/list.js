@@ -9,14 +9,16 @@ class list extends React.Component {
         this.state = {
             flights:[]
         };
+
     }
 
     componentWillMount(){
-        fetch('http://localhost:3000/flight')
+        fetch('http://localhost:3000/bfm')
             .then(res => res.json())
             .then(res => {
                 this.setState({
-                    flights: res
+                    flights: res.FirstItinerary.OTA_AirLowFareSearchRS.PricedItineraries.PricedItinerary
+                    //flights: res
                 });
             });
 
@@ -27,31 +29,76 @@ class list extends React.Component {
         return (
             <div>
                 <main>
-                    <table>
+                    <table className="table table-bordered text-center">
                         <thead>
                             <th>ID</th>
-                            <th>Airline</th>
-                            <th>Number</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Departure</th>
-                            <th>Arrival</th>
+                            <th>Flight</th>
+                            <th>Segment 1 Depart Time</th>
+                            <th>Depart Airport</th>
+                            <th>Arrival Airport</th>
+                            <th>Flight</th>
+                            <th>Segment 2 Depart Time</th>
+                            <th>Depart Airport</th>
+                            <th>Arrival Airport</th>
+                            <th>Flight</th>
+                            <th>Segment 3 Depart Time</th>
+                            <th>Depart Airport</th>
+                            <th>Arrival Airport</th>
+                            <th>Total Time</th>
+                            <th>Flight</th>
+                            <th>Segment 4 Depart Time</th>
+                            <th>Depart Airport</th>
+                            <th>Arrival Airport</th>
+                            <th>Flight</th>
+                            <th>Segment 5 Depart Time</th>
+                            <th>Depart Airport</th>
+                            <th>Arrival Airport</th>
+                            <th>Flight</th>
+                            <th>Segment 6 Depart Time</th>
+                            <th>Depart Airport</th>
+                            <th>Arrival Airport</th>
+                            <th>Total Time</th>
+                            <th>Total Price</th>
                         </thead>
 
                         <tbody>
                             {
-                                flights.map((flight) => {
-                                return(
-                                    <tr key={flight.id}>
-                                        <td>{flight.id}</td>
-                                        <td>{flight.airline}</td>
-                                        <td>{flight.number}</td>
-                                        <td>{flight.from}</td>
-                                        <td>{flight.to}</td>
-                                        <td>{flight.departure}</td>
-                                        <td>{flight.arrival}</td>
-                                    </tr>
-                                )
+                                flights.map((PricedItinerary) => {
+                                  var FlightSegment = PricedItinerary.AirItinerary.OriginDestinationOptions.OriginDestinationOption;
+                                  console.log(FlightSegment[0]);
+                                  return(
+                                      <tr key={PricedItinerary.SequenceNumber}>
+                                          <td>{PricedItinerary.SequenceNumber}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 0 ? FlightSegment[0].FlightSegment[0].OperatingAirline.Code + ' / '+ FlightSegment[0].FlightSegment[0].OperatingAirline.FlightNumber : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 0 ? FlightSegment[0].FlightSegment[0].DepartureDateTime : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 0 ? FlightSegment[0].FlightSegment[0].DepartureAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 0 ? FlightSegment[0].FlightSegment[0].ArrivalAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 1 ? FlightSegment[0].FlightSegment[1].OperatingAirline.Code + ' / '+ FlightSegment[0].FlightSegment[1].OperatingAirline.FlightNumber : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 1 ? FlightSegment[0].FlightSegment[1].DepartureDateTime : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 1 ? FlightSegment[0].FlightSegment[1].DepartureAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 1 ? FlightSegment[0].FlightSegment[1].ArrivalAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 2 ? FlightSegment[0].FlightSegment[2].OperatingAirline.Code + ' / '+ FlightSegment[0].FlightSegment[2].OperatingAirline.FlightNumber : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 2 ? FlightSegment[0].FlightSegment[2].DepartureDateTime : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 2 ? FlightSegment[0].FlightSegment[2].DepartureAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment[0].FlightSegment.length > 2 ? FlightSegment[0].FlightSegment[2].ArrivalAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 0 ? FlightSegment[0].ElapsedTime : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 0 ? FlightSegment[1].FlightSegment[0].OperatingAirline.Code + ' / '+ FlightSegment[1].FlightSegment[0].OperatingAirline.FlightNumber : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 0 ? FlightSegment[1].FlightSegment[0].DepartureDateTime : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 0 ? FlightSegment[1].FlightSegment[0].DepartureAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 0 ? FlightSegment[1].FlightSegment[0].ArrivalAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 1 ? FlightSegment[1].FlightSegment[1].OperatingAirline.Code + ' / '+ FlightSegment[1].FlightSegment[1].OperatingAirline.FlightNumber : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 1 ? FlightSegment[1].FlightSegment[1].DepartureDateTime : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 1 ? FlightSegment[1].FlightSegment[1].DepartureAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 1 ? FlightSegment[1].FlightSegment[1].ArrivalAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 2 ? FlightSegment[1].FlightSegment[2].OperatingAirline.Code + ' / '+ FlightSegment[1].FlightSegment[2].OperatingAirline.FlightNumber : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 2 ? FlightSegment[1].FlightSegment[2].DepartureDateTime : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 2 ? FlightSegment[1].FlightSegment[2].DepartureAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 && FlightSegment[1].FlightSegment.length > 2 ? FlightSegment[1].FlightSegment[2].ArrivalAirport.LocationCode : 'null'}</td>
+                                          <td>{FlightSegment.length > 1 ? FlightSegment[1].ElapsedTime : 'null'}</td>
+                                          <td>{PricedItinerary.AirItineraryPricingInfo[0].ItinTotalFare.TotalFare.Amount + ' + ' + PricedItinerary.AirItineraryPricingInfo[0].ItinTotalFare.TotalFare.CurrencyCode}</td>
+
+                                      </tr>
+                                  )
                                 })
                             }
                         </tbody>
